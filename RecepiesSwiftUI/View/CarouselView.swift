@@ -8,98 +8,83 @@
 import SwiftUI
 
 struct CarouselView: View {
-    let recipes: [(image: String, name: String, category: String)] = [
-        ("Pasta", "Pasta", "Italian"),
-        ("Pizza", "Pizza", "Italian"),
-        ("Sushi", "Sushi", "Japanese"),
-        ("Burger", "Burger", "American"),
-        ("Salad", "Salad", "Healthy")
-    ]
-    
+    @StateObject private var viewModel = RecipeViewModel()
     @State private var selectedIndex = 0
-    @State private var isRefreshing = false
-    
+
     var body: some View {
         ZStack {
             VStack {
                 // Title and refresh button at the top
                 HStack {
-                    // Title
                     Text("Recipes")
-                        .font(.system(size: 40, weight: .bold, design: .rounded)) // Fun rounded font
+                        .font(.system(size: 40, weight: .bold, design: .rounded))
                         .foregroundColor(.black)
                         .padding([.leading, .top], 24)
                     
-                    Spacer()  // Pushes the button to the far right
+                    Spacer()
                     
-                    // Refresh Button (Green refresh image)
-                    Button(action: refreshRecipes) {
-                        Image(systemName: "arrow.clockwise.circle.fill") // You can use SF Symbols for the refresh icon
+                    Button(action: viewModel.fetchRecipes) {
+                        Image(systemName: "arrow.clockwise.circle.fill")
                             .resizable()
                             .scaledToFit()
                             .foregroundColor(Color.green.opacity(0.6))
-                            .frame(width: 40, height: 40) // Set the size of the icon
+                            .frame(width: 40, height: 40)
                     }
                     .padding([.top, .trailing], 24)
                 }
                 
-                // Carousel
-                TabView(selection: $selectedIndex) {
-                    ForEach(0..<recipes.count/2 + (recipes.count % 2 == 0 ? 0 : 1), id: \.self) { index in
-                        VStack(spacing: 16) {
-                            // Display the first item
-                            if let firstRecipe = recipes[safe: index * 2] {
-                                CarouselItem(recipe: firstRecipe)
-                                    .frame(width: UIScreen.main.bounds.width * 0.9)
+                if viewModel.isLoading {
+                    ProgressView("Loading recipes...")
+                        .padding(.top, 20)
+                } else if let errorMessage = viewModel.errorMessage {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 20)
+                } else {
+                    TabView(selection: $selectedIndex) {
+                        ForEach(viewModel.recipes.chunked(into: 2), id: \.self) { recipePair in
+                            VStack(spacing: 16) {
+                                ForEach(recipePair) { recipe in
+                                    CarouselItem(recipe: recipe)
+                                        .frame(width: UIScreen.main.bounds.width * 0.9)
+                                }
                             }
-                            
-                            // Display the second item if available
-                            if let secondRecipe = recipes[safe: index * 2 + 1] {
-                                CarouselItem(recipe: secondRecipe)
-                                    .frame(width: UIScreen.main.bounds.width * 0.9)
-                            }
+                            .padding([.leading, .trailing], 10)
                         }
-                        .padding([.leading, .trailing], 10)
-                        .tag(index) // Tag each page for selection tracking
+                    }
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+
+                    // Custom Dot Indicators
+                    HStack {
+                        ForEach(0..<viewModel.recipes.count/2 + (viewModel.recipes.count % 2 == 0 ? 0 : 1), id: \.self) { index in
+                            Circle()
+                                .fill(selectedIndex == index ? Color.black : Color.gray)
+                                .frame(width: 10, height: 10)
+                                .padding(5)
+                        }
                     }
                 }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))  // Disable default indicator
-                
-                // Custom Dot Indicators
-                HStack {
-                    ForEach(0..<recipes.count/2 + (recipes.count % 2 == 0 ? 0 : 1), id: \.self) { index in
-                        Circle()
-                            .fill(selectedIndex == index ? Color.black : Color.gray)
-                            .frame(width: 10, height: 10)
-                            .padding(5)
-                    }
-                }
-                
                 Spacer()
             }
         }
         .background(
-            Image("Background") // The background image applied here
+            Image("Background")
                 .resizable()
                 .scaledToFill()
-                .edgesIgnoringSafeArea(.all) // Ensures the image fills the screen
+                .edgesIgnoringSafeArea(.all)
         )
-    }
-
-    func refreshRecipes() {
-        // Simulate refreshing the recipes
-        isRefreshing = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            isRefreshing = false
-            // You can replace the hardcoded recipe list here with a function to actually refresh the recipes if needed
-            print("Recipes refreshed!")
+        .onAppear {
+            viewModel.fetchRecipes()
         }
     }
 }
 
-// Safe array indexing
-extension Collection {
-    subscript(safe index: Index) -> Element? {
-        return indices.contains(index) ? self[index] : nil
+// Extension to split array into chunks
+extension Array {
+    func chunked(into size: Int) -> [[Element]] {
+        stride(from: 0, to: count, by: size).map {
+            Array(self[$0..<Swift.min($0 + size, count)])
+        }
     }
 }

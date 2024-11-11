@@ -14,7 +14,7 @@ struct RecipeResponse: Codable {
     let recipes: [Recipe]
 }
 
-struct Recipe: Codable, Identifiable {
+struct Recipe: Codable, Identifiable, Hashable {
     let id: String
     let cuisine: String
     let name: String
