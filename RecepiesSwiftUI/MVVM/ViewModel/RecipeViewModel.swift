@@ -5,6 +5,7 @@
 //  Created by Munoz, Edgar on 11/11/24.
 //
 
+// RecipeViewModel.swift
 import SwiftUI
 import Combine
 
@@ -13,6 +14,7 @@ class RecipeViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
 
+    private let imageCache: ImageCacheable
     private var cancellables = Set<AnyCancellable>()
 
     enum DataType {
@@ -30,6 +32,11 @@ class RecipeViewModel: ObservableObject {
                 return "https://d3jbb8n5wk0qxi.cloudfront.net/recipes-empty.json"
             }
         }
+    }
+    
+    // Use dependency injection for image caching
+    init(imageCache: ImageCacheable = ImageCache()) {
+        self.imageCache = imageCache
     }
 
     func fetchRecipes(dataType: DataType) {
@@ -68,20 +75,20 @@ class RecipeViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
-    
+
     private func cacheImages(for recipes: [Recipe]) {
         for index in recipes.indices {
             var recipe = recipes[index]
             
             let imageURL = recipe.photoURLLarge
             
-            if let cachedImage = getCachedImage(for: imageURL) {
+            if let cachedImage = imageCache.getCachedImage(for: imageURL) {
                 recipe.cachedImage = cachedImage
                 self.recipes[index] = recipe
             } else {
                 downloadImage(from: imageURL) { image in
                     if let image = image {
-                        self.cacheImage(image, for: imageURL)
+                        self.imageCache.cacheImage(image, for: imageURL)
                         recipe.cachedImage = image
                         self.recipes[index] = recipe
                     }
@@ -107,31 +114,5 @@ class RecipeViewModel: ObservableObject {
                 completion(image)
             }
         }.resume()
-    }
-    
-    private func cacheImage(_ image: UIImage, for url: URL) {
-        guard let imageData = image.pngData() else { return }
-
-        let response = URLResponse(
-            url: url,
-            mimeType: "image/png",
-            expectedContentLength: imageData.count,
-            textEncodingName: nil
-        )
-
-        let cachedResponse = CachedURLResponse(
-            response: response,
-            data: imageData
-        )
-        
-        URLCache.shared.storeCachedResponse(cachedResponse, for: URLRequest(url: url))
-    }
-
-    private func getCachedImage(for url: URL) -> UIImage? {
-        let request = URLRequest(url: url)
-        if let cachedResponse = URLCache.shared.cachedResponse(for: request) {
-            return UIImage(data: cachedResponse.data)
-        }
-        return nil
     }
 }
