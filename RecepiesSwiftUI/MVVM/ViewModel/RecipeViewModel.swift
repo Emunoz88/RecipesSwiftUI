@@ -15,7 +15,6 @@ class RecipeViewModel: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
 
-    // Enum to represent different data endpoints
     enum DataType {
         case allRecipes
         case malformedData
@@ -40,11 +39,10 @@ class RecipeViewModel: ObservableObject {
         }
         
         isLoading = true
-        errorMessage = nil  // Clear any previous errors
+        errorMessage = nil
         
         URLSession.shared.dataTaskPublisher(for: url)
             .tryMap { output -> Data in
-                // Check for valid HTTP response
                 guard let response = output.response as? HTTPURLResponse, response.statusCode == 200 else {
                     throw URLError(.badServerResponse)
                 }
@@ -71,27 +69,19 @@ class RecipeViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    // Cache images to disk
     private func cacheImages(for recipes: [Recipe]) {
         for index in recipes.indices {
-            var recipe = recipes[index]  // Make the recipe mutable
+            var recipe = recipes[index]
             
-            // Ensure recipe has a valid photoURL
             let imageURL = recipe.photoURLLarge
             
-            // Check if the image is cached
             if let cachedImage = getCachedImage(for: imageURL) {
-                // Update the recipe's cachedImage property with the cached image
                 recipe.cachedImage = cachedImage
-                // Replace the updated recipe in the recipes array
                 self.recipes[index] = recipe
             } else {
-                // If not cached, download and cache
                 downloadImage(from: imageURL) { image in
                     if let image = image {
-                        // Cache the image
                         self.cacheImage(image, for: imageURL)
-                        // Update the recipe with the new image and replace in the array
                         recipe.cachedImage = image
                         self.recipes[index] = recipe
                     }
@@ -100,8 +90,6 @@ class RecipeViewModel: ObservableObject {
         }
     }
 
-    
-    // Download image from URL
     private func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -121,11 +109,9 @@ class RecipeViewModel: ObservableObject {
         }.resume()
     }
     
-    // Store image in cache
     private func cacheImage(_ image: UIImage, for url: URL) {
         guard let imageData = image.pngData() else { return }
 
-        // Create a dummy URLResponse
         let response = URLResponse(
             url: url,
             mimeType: "image/png",
@@ -141,8 +127,6 @@ class RecipeViewModel: ObservableObject {
         URLCache.shared.storeCachedResponse(cachedResponse, for: URLRequest(url: url))
     }
 
-    
-    // Retrieve cached image
     private func getCachedImage(for url: URL) -> UIImage? {
         let request = URLRequest(url: url)
         if let cachedResponse = URLCache.shared.cachedResponse(for: request) {

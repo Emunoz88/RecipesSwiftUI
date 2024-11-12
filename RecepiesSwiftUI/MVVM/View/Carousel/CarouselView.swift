@@ -43,17 +43,7 @@ struct CarouselView: View {
             viewModel.fetchRecipes(dataType: .allRecipes)
         }
         .onChange(of: viewModel.recipes) { _ in
-            selectedIndex = 0  // Reset index to 0 when recipes update
-        }
-    }
-}
-
-
-// Extension to split array into chunks
-extension Array {
-    func chunked(into size: Int) -> [[Element]] {
-        stride(from: 0, to: count, by: size).map {
-            Array(self[$0..<Swift.min($0 + size, count)])
+            selectedIndex = 0
         }
     }
 }
