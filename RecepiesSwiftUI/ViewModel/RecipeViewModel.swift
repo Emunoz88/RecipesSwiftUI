@@ -15,22 +15,55 @@ class RecipeViewModel: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
 
-    func fetchRecipes() {
-        guard let url = URL(string: "https://d3jbb8n5wk0qxi.cloudfront.net/recipes.json") else {
+    // Enum to represent different data endpoints
+    enum DataType {
+        case allRecipes
+        case malformedData
+        case emptyData
+        
+        var urlString: String {
+            switch self {
+            case .allRecipes:
+                return "https://d3jbb8n5wk0qxi.cloudfront.net/recipes.json"
+            case .malformedData:
+                return "https://d3jbb8n5wk0qxi.cloudfront.net/recipes-malformed.json"
+            case .emptyData:
+                return "https://d3jbb8n5wk0qxi.cloudfront.net/recipes-empty.json"
+            }
+        }
+    }
+
+    func fetchRecipes(dataType: DataType) {
+        guard let url = URL(string: dataType.urlString) else {
             errorMessage = "Invalid URL"
             return
         }
         
         isLoading = true
+        errorMessage = nil  // Clear any previous errors
+        
         URLSession.shared.dataTaskPublisher(for: url)
-            .map(\.data)
+            .tryMap { output -> Data in
+                // Check for valid HTTP response
+                guard let response = output.response as? HTTPURLResponse, response.statusCode == 200 else {
+                    throw URLError(.badServerResponse)
+                }
+                return output.data
+            }
             .decode(type: RecipeResponse.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 self.isLoading = false
                 switch completion {
                 case .failure(let error):
-                    self.errorMessage = "Failed to load recipes: \(error.localizedDescription)"
+                    // Provide a more descriptive error message for malformed data
+                    if dataType == .malformedData {
+                        self.errorMessage = "Failed to load malformed data: Data format is incorrect."
+                    } else if dataType == .emptyData {
+                        self.errorMessage = "No recipes available: Data is empty."
+                    } else {
+                        self.errorMessage = "Failed to load recipes: \(error.localizedDescription)"
+                    }
                 case .finished:
                     break
                 }

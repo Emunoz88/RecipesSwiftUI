@@ -10,8 +10,9 @@ import SwiftUI
 struct CarouselView: View {
     @StateObject private var viewModel = RecipeViewModel()
     @State private var selectedIndex = 0
+    @State private var showActionSheet = false
     private let maxVisibleDots = 5  // Maximum dots to display
-    
+
     var body: some View {
         ZStack {
             VStack {
@@ -24,9 +25,9 @@ struct CarouselView: View {
                     
                     Spacer()
                     
+                    // Refresh button with ActionSheet
                     Button(action: {
-                        selectedIndex = 0  // Reset the index to 0
-                        viewModel.fetchRecipes()
+                        showActionSheet = true
                     }) {
                         Image(systemName: "arrow.clockwise.circle.fill")
                             .resizable()
@@ -35,6 +36,27 @@ struct CarouselView: View {
                             .frame(width: 40, height: 40)
                     }
                     .padding([.top, .trailing], 24)
+                    .actionSheet(isPresented: $showActionSheet) {
+                        ActionSheet(
+                            title: Text("Select Data Type"),
+                            message: Text("Choose which data type to load"),
+                            buttons: [
+                                .default(Text("All Recipes")) {
+                                    selectedIndex = 0
+                                    viewModel.fetchRecipes(dataType: .allRecipes)
+                                },
+                                .default(Text("Malformed Data")) {
+                                    selectedIndex = 0
+                                    viewModel.fetchRecipes(dataType: .malformedData)
+                                },
+                                .default(Text("Empty Data")) {
+                                    selectedIndex = 0
+                                    viewModel.fetchRecipes(dataType: .emptyData)
+                                },
+                                .cancel()
+                            ]
+                        )
+                    }
                 }
                 
                 if viewModel.isLoading {
@@ -61,7 +83,7 @@ struct CarouselView: View {
                             }
                         }
                         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                        
+
                         // Limited Page Indicator
                         HStack(spacing: 8) {
                             ForEach(getVisibleDotIndices(totalPages: viewModel.recipes.chunked(into: 2).count), id: \.self) { index in
@@ -84,7 +106,7 @@ struct CarouselView: View {
                 .edgesIgnoringSafeArea(.all)
         )
         .onAppear {
-            viewModel.fetchRecipes()
+            viewModel.fetchRecipes(dataType: .allRecipes)
         }
     }
     
