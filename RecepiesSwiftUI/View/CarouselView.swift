@@ -11,7 +11,7 @@ struct CarouselView: View {
     @StateObject private var viewModel = RecipeViewModel()
     @State private var selectedIndex = 0
     private let maxVisibleDots = 5  // Maximum dots to display
-
+    
     var body: some View {
         ZStack {
             VStack {
@@ -24,7 +24,10 @@ struct CarouselView: View {
                     
                     Spacer()
                     
-                    Button(action: viewModel.fetchRecipes) {
+                    Button(action: {
+                        selectedIndex = 0  // Reset the index to 0
+                        viewModel.fetchRecipes()
+                    }) {
                         Image(systemName: "arrow.clockwise.circle.fill")
                             .resizable()
                             .scaledToFit()
@@ -58,7 +61,7 @@ struct CarouselView: View {
                             }
                         }
                         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-
+                        
                         // Limited Page Indicator
                         HStack(spacing: 8) {
                             ForEach(getVisibleDotIndices(totalPages: viewModel.recipes.chunked(into: 2).count), id: \.self) { index in
