@@ -64,6 +64,7 @@ struct CarouselView: View {
                         .padding(.top, 20)
                 } else if let errorMessage = viewModel.errorMessage {
                     Text(errorMessage)
+                        .font(.largeTitle)
                         .foregroundColor(.red)
                         .multilineTextAlignment(.center)
                         .padding(.top, 20)
@@ -106,6 +107,7 @@ struct CarouselView: View {
                 .edgesIgnoringSafeArea(.all)
         )
         .onAppear {
+            // Fetch all recipes by default when the view appears
             viewModel.fetchRecipes(dataType: .allRecipes)
         }
     }

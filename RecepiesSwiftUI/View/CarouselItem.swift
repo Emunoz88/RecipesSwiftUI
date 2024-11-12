@@ -12,16 +12,24 @@ struct CarouselItem: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            AsyncImage(url: recipe.photoURLLarge) { image in
-                image.resizable()
+            if let cachedImage = recipe.cachedImage {
+                Image(uiImage: cachedImage)
+                    .resizable()
                     .scaledToFill()
                     .frame(width: UIScreen.main.bounds.width * 0.9, height: 250)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
-            } placeholder: {
-                ProgressView()
-                    .frame(width: UIScreen.main.bounds.width * 0.9, height: 250)
+            } else {
+                AsyncImage(url: recipe.photoURLLarge) { image in
+                    image.resizable()
+                        .scaledToFill()
+                        .frame(width: UIScreen.main.bounds.width * 0.9, height: 250)
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                } placeholder: {
+                    ProgressView()
+                        .frame(width: UIScreen.main.bounds.width * 0.9, height: 250)
+                }
             }
-            
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(recipe.name)
                     .font(.system(size: 24, weight: .bold, design: .rounded))
