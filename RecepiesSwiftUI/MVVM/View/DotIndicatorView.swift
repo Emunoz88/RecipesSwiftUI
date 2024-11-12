@@ -23,7 +23,7 @@ struct DotIndicatorView: View {
         }
     }
     
-    private func getVisibleDotIndices() -> [Int] {
+    func getVisibleDotIndices() -> [Int] {
         if totalPages <= maxVisibleDots {
             return Array(0..<totalPages)
         }
