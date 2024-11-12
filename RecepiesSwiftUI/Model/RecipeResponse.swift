@@ -22,6 +22,7 @@ struct Recipe: Codable, Identifiable, Hashable {
     let photoURLSmall: URL
     let sourceURL: URL?
     let youtubeURL: URL?
+    var cachedImage: UIImage?  // Added property to hold cached image
     
     enum CodingKeys: String, CodingKey {
         case id = "uuid"
