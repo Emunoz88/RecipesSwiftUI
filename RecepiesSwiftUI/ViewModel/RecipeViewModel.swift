@@ -56,7 +56,7 @@ class RecipeViewModel: ObservableObject {
                 self.isLoading = false
                 switch completion {
                 case .failure(let error):
-                    // Provide a more descriptive error message for malformed data
+                    // Set specific error messages for different data types
                     if dataType == .malformedData {
                         self.errorMessage = "Failed to load malformed data: Data format is incorrect."
                     } else if dataType == .emptyData {
@@ -68,7 +68,11 @@ class RecipeViewModel: ObservableObject {
                     break
                 }
             }, receiveValue: { [weak self] response in
-                self?.recipes = response.recipes
+                if response.recipes.isEmpty {
+                    self?.errorMessage = "No recipes available: Data is empty."  // Set error message if recipes list is empty
+                } else {
+                    self?.recipes = response.recipes
+                }
             })
             .store(in: &cancellables)
     }
