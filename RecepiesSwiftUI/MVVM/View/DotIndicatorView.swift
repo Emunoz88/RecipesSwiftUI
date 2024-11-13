@@ -16,7 +16,7 @@ struct DotIndicatorView: View {
         HStack(spacing: 8) {
             ForEach(getVisibleDotIndices(), id: \.self) { index in
                 Circle()
-                    .fill(selectedIndex == index ? Color.black : Color.gray.opacity(0.5))
+                    .fill(selectedIndex == index ? Color.white : Color.gray.opacity(0.5))
                     .frame(width: selectedIndex == index ? 12 : 8, height: selectedIndex == index ? 12 : 8)
                     .animation(.easeInOut(duration: 0.3), value: selectedIndex)
             }

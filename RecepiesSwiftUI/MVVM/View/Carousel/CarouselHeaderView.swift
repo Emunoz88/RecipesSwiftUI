@@ -15,7 +15,7 @@ struct CarouselHeaderView: View {
         HStack {
             Text("Recipes")
                 .font(.system(size: 40, weight: .bold, design: .rounded))
-                .foregroundColor(.black)
+                .foregroundColor(.white)
                 .padding([.leading, .top], 24)
             
             Spacer()
