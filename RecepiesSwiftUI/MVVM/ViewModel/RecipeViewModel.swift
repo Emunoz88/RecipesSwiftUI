@@ -4,8 +4,6 @@
 //
 //  Created by Munoz, Edgar on 11/11/24.
 //
-
-// RecipeViewModel.swift
 import SwiftUI
 import Combine
 
@@ -34,7 +32,6 @@ class RecipeViewModel: ObservableObject {
         }
     }
     
-    // Use dependency injection for image caching
     init(imageCache: ImageCacheable = ImageCache()) {
         self.imageCache = imageCache
     }
