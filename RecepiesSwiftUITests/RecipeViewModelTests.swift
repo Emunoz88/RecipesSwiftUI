@@ -4,7 +4,6 @@
 //
 //  Created by Munoz, Edgar on 11/12/24.
 //
-
 import XCTest
 import Combine
 @testable import RecepiesSwiftUI
@@ -13,10 +12,17 @@ class RecipeViewModelTests: XCTestCase {
     var viewModel: RecipeViewModel!
     var mockSession: MockURLSession!
     var cancellables: Set<AnyCancellable>!
-    
+
     override func setUp() {
         super.setUp()
         cancellables = []
+        mockSession = MockURLSession()
+        viewModel = RecipeViewModel(imageCache: ImageCache())
+    }
+
+    override func tearDown() {
+        cancellables = []
+        super.tearDown()
     }
 
     func testFetchRecipes_HappyPath() {
@@ -28,17 +34,17 @@ class RecipeViewModelTests: XCTestCase {
             ]
         }
         """.data(using: .utf8)
+
         let mockResponse = HTTPURLResponse(url: URL(string: "https://d3jbb8n5wk0qxi.cloudfront.net/recipes.json")!,
                                            statusCode: 200,
                                            httpVersion: nil,
                                            headerFields: nil)
-        
+
         mockSession = MockURLSession(mockData: mockData, mockResponse: mockResponse, mockError: nil)
-        viewModel = RecipeViewModel(imageCache: ImageCache())
         viewModel.fetchRecipes(dataType: .allRecipes)
-        
+
         viewModel.$recipes
-            .dropFirst()
+            .dropFirst()  // Ignore the initial empty state
             .sink { recipes in
                 XCTAssertEqual(recipes.count, 2)
                 XCTAssertEqual(recipes.first?.name, "Recipe 1")
@@ -53,9 +59,8 @@ class RecipeViewModelTests: XCTestCase {
                                            statusCode: 500,
                                            httpVersion: nil,
                                            headerFields: nil)
-        
+
         mockSession = MockURLSession(mockData: mockData, mockResponse: mockResponse, mockError: nil)
-        viewModel = RecipeViewModel(imageCache: ImageCache())
         viewModel.fetchRecipes(dataType: .allRecipes)
 
         viewModel.$errorMessage
@@ -85,7 +90,6 @@ class RecipeViewModelTests: XCTestCase {
     }
 
     func testCacheImage_RetrieveNonExistentImage_SadPath() {
-
         let mockCache = MockImageCache()
         viewModel = RecipeViewModel(imageCache: mockCache)
         
