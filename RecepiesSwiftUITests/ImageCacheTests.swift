@@ -1,12 +1,12 @@
 //
 //  ImageCacheTests.swift
-//  RecepiesSwiftUI
+//  RecipesSwiftUI
 //
 //  Created by Munoz, Edgar on 11/12/24.
 //
 import XCTest
 import UIKit
-@testable import RecepiesSwiftUI
+@testable import RecipesSwiftUI
 
 class ImageCacheTests: XCTestCase {
     

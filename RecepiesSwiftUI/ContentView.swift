@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  RecepiesSwiftUI
+//  RecipesSwiftUI
 //
 //  Created by Munoz, Edgar on 11/10/24.
 //

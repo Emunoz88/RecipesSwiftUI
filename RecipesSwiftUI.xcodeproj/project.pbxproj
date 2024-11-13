@@ -21,8 +21,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0877F8192CE1015C003FE9E8 /* RecepiesSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecepiesSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0899101B2CE3EC2900F54088 /* RecepiesSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecepiesSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0877F8192CE1015C003FE9E8 /* RecipesSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipesSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0899101B2CE3EC2900F54088 /* RecipesSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipesSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		089910D82CE50D5A00F54088 /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,8 +70,8 @@
 		0877F81A2CE1015C003FE9E8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0877F8192CE1015C003FE9E8 /* RecepiesSwiftUI.app */,
-				0899101B2CE3EC2900F54088 /* RecepiesSwiftUITests.xctest */,
+				0877F8192CE1015C003FE9E8 /* RecipesSwiftUI.app */,
+				0899101B2CE3EC2900F54088 /* RecipesSwiftUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -79,9 +79,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0877F8182CE1015C003FE9E8 /* RecepiesSwiftUI */ = {
+		0877F8182CE1015C003FE9E8 /* RecipesSwiftUI */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0877F83D2CE1015E003FE9E8 /* Build configuration list for PBXNativeTarget "RecepiesSwiftUI" */;
+			buildConfigurationList = 0877F83D2CE1015E003FE9E8 /* Build configuration list for PBXNativeTarget "RecipesSwiftUI" */;
 			buildPhases = (
 				0877F8152CE1015C003FE9E8 /* Sources */,
 				0877F8162CE1015C003FE9E8 /* Frameworks */,
@@ -94,16 +94,16 @@
 			fileSystemSynchronizedGroups = (
 				0877F81B2CE1015C003FE9E8 /* RecepiesSwiftUI */,
 			);
-			name = RecepiesSwiftUI;
+			name = RecipesSwiftUI;
 			packageProductDependencies = (
 			);
 			productName = RecepiesSwiftUI;
-			productReference = 0877F8192CE1015C003FE9E8 /* RecepiesSwiftUI.app */;
+			productReference = 0877F8192CE1015C003FE9E8 /* RecipesSwiftUI.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0899101A2CE3EC2900F54088 /* RecepiesSwiftUITests */ = {
+		0899101A2CE3EC2900F54088 /* RecipesSwiftUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 089910212CE3EC2900F54088 /* Build configuration list for PBXNativeTarget "RecepiesSwiftUITests" */;
+			buildConfigurationList = 089910212CE3EC2900F54088 /* Build configuration list for PBXNativeTarget "RecipesSwiftUITests" */;
 			buildPhases = (
 				089910172CE3EC2900F54088 /* Sources */,
 				089910182CE3EC2900F54088 /* Frameworks */,
@@ -117,11 +117,11 @@
 			fileSystemSynchronizedGroups = (
 				0899101C2CE3EC2900F54088 /* RecepiesSwiftUITests */,
 			);
-			name = RecepiesSwiftUITests;
+			name = RecipesSwiftUITests;
 			packageProductDependencies = (
 			);
 			productName = RecepiesSwiftUITests;
-			productReference = 0899101B2CE3EC2900F54088 /* RecepiesSwiftUITests.xctest */;
+			productReference = 0899101B2CE3EC2900F54088 /* RecipesSwiftUITests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -143,7 +143,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0877F8142CE1015C003FE9E8 /* Build configuration list for PBXProject "RecepiesSwiftUI" */;
+			buildConfigurationList = 0877F8142CE1015C003FE9E8 /* Build configuration list for PBXProject "RecipesSwiftUI" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -157,8 +157,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0877F8182CE1015C003FE9E8 /* RecepiesSwiftUI */,
-				0899101A2CE3EC2900F54088 /* RecepiesSwiftUITests */,
+				0877F8182CE1015C003FE9E8 /* RecipesSwiftUI */,
+				0899101A2CE3EC2900F54088 /* RecipesSwiftUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -201,7 +201,7 @@
 /* Begin PBXTargetDependency section */
 		089910202CE3EC2900F54088 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0877F8182CE1015C003FE9E8 /* RecepiesSwiftUI */;
+			target = 0877F8182CE1015C003FE9E8 /* RecipesSwiftUI */;
 			targetProxy = 0899101F2CE3EC2900F54088 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -401,7 +401,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RecepiesSwiftUI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RecepiesSwiftUI";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RecipesSwiftUI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RecipesSwiftUI";
 			};
 			name = Debug;
 		};
@@ -420,14 +420,14 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RecepiesSwiftUI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RecepiesSwiftUI";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RecipesSwiftUI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RecipesSwiftUI";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0877F8142CE1015C003FE9E8 /* Build configuration list for PBXProject "RecepiesSwiftUI" */ = {
+		0877F8142CE1015C003FE9E8 /* Build configuration list for PBXProject "RecipesSwiftUI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0877F83B2CE1015E003FE9E8 /* Debug */,
@@ -436,7 +436,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0877F83D2CE1015E003FE9E8 /* Build configuration list for PBXNativeTarget "RecepiesSwiftUI" */ = {
+		0877F83D2CE1015E003FE9E8 /* Build configuration list for PBXNativeTarget "RecipesSwiftUI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0877F83E2CE1015E003FE9E8 /* Debug */,
@@ -445,7 +445,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		089910212CE3EC2900F54088 /* Build configuration list for PBXNativeTarget "RecepiesSwiftUITests" */ = {
+		089910212CE3EC2900F54088 /* Build configuration list for PBXNativeTarget "RecipesSwiftUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				089910222CE3EC2900F54088 /* Debug */,

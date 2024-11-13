@@ -1,12 +1,12 @@
 //
 //  CarouselContentViewTests.swift
-//  RecepiesSwiftUI
+//  RecipesSwiftUI
 //
 //  Created by Munoz, Edgar on 11/12/24.
 //
 
 import XCTest
-@testable import RecepiesSwiftUI
+@testable import RecipesSwiftUI
 
 final class CarouselContentViewTests: XCTestCase {
     func testChunkRecipesIntoGroupsOfTwo() {
