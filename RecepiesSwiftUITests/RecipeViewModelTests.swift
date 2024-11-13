@@ -12,12 +12,14 @@ class RecipeViewModelTests: XCTestCase {
     var viewModel: RecipeViewModel!
     var mockSession: MockURLSession!
     var cancellables: Set<AnyCancellable>!
+    var mockImageCache: MockImageCache!
 
     override func setUp() {
         super.setUp()
         cancellables = []
         mockSession = MockURLSession()
-        viewModel = RecipeViewModel(imageCache: ImageCache())
+        mockImageCache = MockImageCache()
+        viewModel = RecipeViewModel(imageCache: mockImageCache)
     }
 
     override func tearDown() {
@@ -74,27 +76,16 @@ class RecipeViewModelTests: XCTestCase {
 
     func testCacheImage_StoreAndRetrieve_HappyPath() {
         let mockImage = UIImage(systemName: "star")!
-        
         let recipe = Recipe(id: "1", cuisine: "Any", name: "star", photoURLLarge: URL(string: "https://example.com/photo1.jpg")!, photoURLSmall: URL(string: "https://example.com/photo1.jpg")!, sourceURL: nil, youtubeURL: nil, cachedImage: nil)
         
-        let mockCache = MockImageCache()
-        viewModel = RecipeViewModel(imageCache: mockCache)
+        mockImageCache.cacheImage(mockImage, for: recipe.photoURLLarge)
         
-        mockCache.cacheImage(mockImage, for: recipe.photoURLLarge)
-        
-        if let cachedImage = mockCache.getCachedImage(for: recipe.photoURLLarge) {
-            XCTAssertEqual(cachedImage, mockImage)
-        } else {
-            XCTFail("Failed to retrieve the cached image.")
-        }
+        let cachedImage = mockImageCache.getCachedImage(for: recipe.photoURLLarge)
+        XCTAssertEqual(cachedImage, mockImage)
     }
 
     func testCacheImage_RetrieveNonExistentImage_SadPath() {
-        let mockCache = MockImageCache()
-        viewModel = RecipeViewModel(imageCache: mockCache)
-        
-        let cachedImage = mockCache.getCachedImage(for: URL(string: "https://example.com/nonexistent.jpg")!)
-        
+        let cachedImage = mockImageCache.getCachedImage(for: URL(string: "https://example.com/nonexistent.jpg")!)
         XCTAssertNil(cachedImage)
     }
 }
