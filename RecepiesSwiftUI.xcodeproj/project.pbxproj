@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		089910D92CE50D5A00F54088 /* README.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 089910D82CE50D5A00F54088 /* README.rtf */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		0899101F2CE3EC2900F54088 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -19,6 +23,7 @@
 /* Begin PBXFileReference section */
 		0877F8192CE1015C003FE9E8 /* RecepiesSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecepiesSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0899101B2CE3EC2900F54088 /* RecepiesSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecepiesSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		089910D82CE50D5A00F54088 /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -58,6 +63,7 @@
 				0877F81B2CE1015C003FE9E8 /* RecepiesSwiftUI */,
 				0899101C2CE3EC2900F54088 /* RecepiesSwiftUITests */,
 				0877F81A2CE1015C003FE9E8 /* Products */,
+				089910D82CE50D5A00F54088 /* README.rtf */,
 			);
 			sourceTree = "<group>";
 		};
@@ -162,6 +168,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				089910D92CE50D5A00F54088 /* README.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
