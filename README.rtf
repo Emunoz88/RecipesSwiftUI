@@ -1,46 +1,58 @@
 Recipe List Viewer
+
 A SwiftUI project designed to display a list of recipes fetched from the web. This project emphasizes efficient data handling, robust error management, image caching via NSCache, and a comprehensive test suite to ensure reliable functionality.
 Getting Started
+
 Prerequisites
-	•	Xcode 12 or higher
-	•	iOS 14.0 or higher
+
+•	Xcode 12 or higher
+•	iOS 14.0 or higher
 
 Running the Project
-	1	Clone the repository: URL<URL>
-	3	Open the .xcodeproj file in Xcode.
-	4	Select your target device or simulator.
-	5	Click Run to build and launch the app.
+
+1	Clone the repository: URL<URL>
+3	Open the .xcodeproj file in Xcode.
+4	Select your target device or simulator.
+5	Click Run to build and launch the app.
 
 Focus Areas and Goals
-	•	Data Fetching and Parsing: Fetches JSON data from a web API with thorough handling for normal, malformed, and empty data scenarios.
-	•	Image Caching: Utilizes NSCache for in-memory caching to store images, improving load times and minimizing network calls.
-	•	Error Handling and Resilience: Implements user-friendly error messages for network or data issues, ensuring a smooth user experience.
-	•	Testing and Validation: Includes extensive unit tests covering data parsing, error handling, image caching, and UI components to verify the app's reliability.
+
+•	Data Fetching and Parsing: Fetches JSON data from a web API with thorough handling for normal, malformed, and empty data scenarios.
+•	Image Caching: Utilizes NSCache for in-memory caching to store images, improving load times and minimizing network calls.
+•	Error Handling and Resilience: Implements user-friendly error messages for network or data issues, ensuring a smooth user experience.
+•	Testing and Validation: Includes extensive unit tests covering data parsing, error handling, image caching, and UI components to verify the app's reliability.
 
 Time Allocation
-	•	Data Fetching and Error Handling: 30%
-	•	UI Development with SwiftUI: 20%
-	•	Image Caching Implementation: 15%
-	•	Unit and Integration Testing: 30%
+
+•	Data Fetching and Error Handling: 30%
+•	UI Development with SwiftUI: 20%
+•	Image Caching Implementation: 15%
+•	Unit and Integration Testing: 30%
 
 Trade-offs and Considerations
-	•	Image Caching with NSCache: NSCache provides in-memory caching, meaning images are cleared if the app terminates. For longer-term caching, future iterations could include disk-based caching.
-	•	SwiftUI Benefits and Challenges: SwiftUI enables declarative syntax but requires careful performance management, especially with complex views.
-	•	Error Handling Scope: Basic error handling is included; however, more advanced mechanisms like retry logic or exponential backoff were deferred to maintain simplicity.
-	•	Testing Approach: Mock URL sessions and custom image caching were used for testing to avoid dependency on live servers.
+
+•	Image Caching with NSCache: NSCache provides in-memory caching, meaning images are cleared if the app terminates. For longer-term caching, future iterations could include disk-based caching.
+•	SwiftUI Benefits and Challenges: SwiftUI enables declarative syntax but requires careful performance management, especially with complex views.
+•	Error Handling Scope: Basic error handling is included; however, more advanced mechanisms like retry logic or exponential backoff were deferred to maintain simplicity.
+•	Testing Approach: Mock URL sessions and custom image caching were used for testing to avoid dependency on live servers.
 
 Weaknesses
-	•	Manual Dependency Injection: Dependencies like ImageCache are manually injected into RecipeViewModel. In a larger application, this could be refactored for improved scalability.
-	•	Limited Error Typing: Error handling is mostly high-level, meaning more granular network issues might not be as transparent to users.
-	•	UI Performance at Scale: As the recipe list grows, performance may need further optimization, such as leveraging lazy-loading techniques for images.
-	•	No External Dependencies: This project avoids external libraries, relying on custom implementations for components like the carousel.
+
+•	Manual Dependency Injection: Dependencies like ImageCache are manually injected into RecipeViewModel. In a larger application, this could be refactored for improved scalability.
+•	Limited Error Typing: Error handling is mostly high-level, meaning more granular network issues might not be as transparent to users.
+•	UI Performance at Scale: As the recipe list grows, performance may need further optimization, such as leveraging lazy-loading techniques for images.
+•	No External Dependencies: This project avoids external libraries, relying on custom implementations for components like the carousel.
 
 External Code and Dependencies
+
 This project does not use external dependencies such as CocoaPods or third-party libraries.
+
 Insights and Constraints
-	•	Testing Limitations: SwiftUI view models and UI components involve handling Combine publishers, which can complicate test implementation. Future versions could introduce additional abstraction layers to simplify testing.
-	•	Concurrency Management: Asynchronous data tasks are managed with Combine, requiring careful handling to prevent memory leaks and retain performance.
-	•	API Reliability: The app is dependent on specific API endpoints. Changes or downtime in the API could impact the app's functionality until adjustments are made.
+
+•	Testing Limitations: SwiftUI view models and UI components involve handling Combine publishers, which can complicate test implementation. Future versions could introduce additional abstraction layers to simplify testing.
+•	Concurrency Management: Asynchronous data tasks are managed with Combine, requiring careful handling to prevent memory leaks and retain performance.
+•	API Reliability: The app is dependent on specific API endpoints. Changes or downtime in the API could impact the app's functionality until adjustments are made.
 
 Author
+
 Developed by Edgar Munoz as a demonstration of best practices for network data fetching, caching, and testing in SwiftUI.
